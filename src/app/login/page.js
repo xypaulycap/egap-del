@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation";
 
 export default function LoginPage(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginInProgress, setLoginInProgress] = useState(false)
     const [error, setError] = useState(false)
+    const router = useRouter()
 
      async function handleFormSubmit (ev) {
         ev.preventDefault();
@@ -19,6 +21,8 @@ export default function LoginPage(){
 
         if(result.error) {
           setError(true)
+        } else{
+          router.push('/')
         }
         
 
@@ -50,7 +54,7 @@ export default function LoginPage(){
           <div className="my-4 text-center text-gray-500">
             Login with provider
           </div>
-          <button onClick={async (ev) => { ev.preventDefault(); setError(false); signIn('google', {callbackUrl: '/'})
+          <button onClick={async (ev) => { ev.preventDefault(); setError(false); setLoginInProgress(true);  signIn('google', {callbackUrl: '/'})
             setLoginInProgress(false)}}
             disabled={loginInProgress} 
             className="flex gap-4 justify-center">

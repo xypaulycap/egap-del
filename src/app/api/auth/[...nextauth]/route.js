@@ -1,3 +1,4 @@
+import clientPromise from "@/libs/mongoConnect"
 import client from "@/libs/mongoConnect"
 import { User } from "@/models/User"
 import { UserInfo } from "@/models/UserInfo"
@@ -11,6 +12,10 @@ import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(client),
+  session: {
+    strategy: 'jwt',
+    maxAge: 3000,
+  },
   providers:[
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -26,27 +31,40 @@ export const authOptions = {
         },
         async authorize(credentials, req) {
           if (!credentials) {
+            console.error('Credentials not provided');
             throw new Error('Credentials not provided');
           }
         
           const { email, password } = credentials;
+          console.log(`Authorize called with email: ${email}`);
         
           // Ensure MongoDB connection is established
           
             await mongoose.connect(process.env.MONGO_URL);
+            console.log('MongoDB connected successfully');
           
         
           const user = await User.findOne({ email });
-          const passwordOk = await bcrypt.compareSync(password, user.password);
-        
-          
-        
-          if (passwordOk) {
-            return user;
+          if(!user) {
+            console.error('User not found',email);
+            return null;
           }
+          console.log('user found', user);
+          
+          const passwordOk = await bcrypt.compare(password, user.password);
+          if(!passwordOk){
+            console.error('Password incorrect');
+            return null;
+          }
+
+          return {id: user._id.toString(), email: user.email};
+        
+          // if (passwordOk) {
+          //   return user; 
+          // }
           
           // Return null if user data could not be retrieved
-          return null
+          // return null
         }
       })
   ]
