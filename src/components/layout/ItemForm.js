@@ -16,6 +16,9 @@ export default function ItemForm({ onSubmit, item }) {
     fetch("/api/categories").then((res) => {
       res.json().then((categories) => {
         setCategories(categories);
+        if (!category && categories.length > 0) {
+          setCategory(categories[0]._id); // Set the first category as default
+        }
       });
     });
   }, []);
