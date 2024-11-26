@@ -9,7 +9,7 @@ const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata = {
   title: "Egapswiftbuy",
-  description: "Shop a wide range of quality products at competitive prices. We offer wholesale and retail options for essentials like rice, groundnut oil, Bonvita, Cadbury chocolates, spices, cleaning products, and much more. Perfect for households, businesses, and bulk orders. Fast delivery and great customer service!",
+  description: "Shop a wide range of quality products at competitive prices. We offer wholesale and retail options for essentials like rice, groundnut oil, Bonvita, Cadbury chocolates, spices, cleaning products, and much more. Perfect for households, businesses, and bulk orders. Fast delivery and great customer service!"
 };
 
 export default function RootLayout({ children }) {
