@@ -9,6 +9,9 @@ export default function HeroCarousel() {
       loop: true, 
       autoplay: true,
       autoplayInterval: 1000, // Adjust the interval for autoplay
+      stopOnInteraction: false,
+      stopOnMouseEnter: false,
+      stopOnFocusIn: false,
     },
     [Autoplay()]
   );
