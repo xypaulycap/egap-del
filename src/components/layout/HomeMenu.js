@@ -17,7 +17,7 @@ export default function HomeMenu() {
   },[])
   return (
     <section>
-      <SectionHeaders subHeader={'Check Out'} mainHeader={'Our Featured Products'} />
+      <SectionHeaders  mainHeader={'Our Featured Products'} className= 'mb-4' />
       <div className="flex flex-wrap justify-center gap-4 mt-4">
         {bestProducts?.length > 0 && bestProducts.map((item,index) => (
           <Item key={item._id} {...item}/>
