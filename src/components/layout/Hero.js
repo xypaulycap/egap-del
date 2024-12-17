@@ -1,11 +1,14 @@
+'use client'
 import Image from "next/image";
 import Right from "../icons/Right";
 import "../../app/globals.css";
 import Link from "next/link";
+import HeroCarousel from "./HeroCarousel";
+
 
 export default function Hero() {
   return (
-    <section className="hero md:mt-4">
+    <section className="hero md:mt-4 relative flex md:flex-row items-center md:items-start">
       <div className="py-8 md:py-12">
         <h1 className="text-4xl font-semibold">
           Everything <br /> is better <br /> with
@@ -25,10 +28,7 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
-      <div className="relative hidden md:block">
-        <Image src={"/rice.png" || null} width={350} height={350} style={{objectFit:"cover"}} alt={"rice"} priority />
-      </div>
+      <HeroCarousel />
     </section>
   );
 }
