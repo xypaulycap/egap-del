@@ -4,7 +4,7 @@ import Item from "@/components/menu/Item"
 import { useEffect, useState } from "react"
 
 export default function StorePage() {
-    const [categories, setCategories] = useState([])  // Fix typo: "Ctegories" -> "Categories"
+    const [categories, setCategories] = useState([])
     const [items, setItems] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('all')  // State to track selected category
 
@@ -68,7 +68,7 @@ export default function StorePage() {
                         )}
 
                         {/* Show the items in the current category (filtered for 'all' or specific category) */}
-                        <div className="grid sm:grid-cols-3 gap-4 mt-6 mb-12">
+                        <div className="flex flex-wrap justify-center gap-4 mt-6 mb-12">
                             {selectedCategory === 'all' 
                                 ? // Show all items under their respective categories when 'All' is selected
                                   groupedItems[c._id]?.map(item => (
