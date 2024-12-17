@@ -26,8 +26,8 @@ export default function ItemTile({onAddToCart, ...item}){
       />
     </div>
 
-    <h4 className="font-semibold my-1 text-lg">{name}</h4>  {/* Smaller font size */}
-    <p className="text-gray-500 text-sm line-clamp-2 mt-2">{truncatedDescription}</p>
+    <h4 className="font-semibold my-1 text-md px-2">{name}</h4>  {/* Smaller font size */}
+    <p className="text-gray-500 text-xs line-clamp-2 mt-2 px-2">{truncatedDescription}</p>
   </Link>
   
   <div className="mt-auto w-full m-1">
