@@ -14,21 +14,42 @@ export default function RegisterPage() {
   async function handleFormSubmit(ev) {
     ev.preventDefault();
     setCreatingUser(true);
-    setError(false)
-    setUserCreated(false)
-    const response = await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if(response.ok) {
-        setUserCreated(true);
+    setError(false);
+    setUserCreated(false);
+  
+    try {
+      // Register user
+      const registerResponse = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!registerResponse.ok) {
+        throw new Error("User registration failed");
+      }
+  
+      // Send welcome email
+      const emailResponse = await fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!emailResponse.ok) {
+        throw new Error("Email sending failed");
+      }
+  
+      // If both succeed
+      setUserCreated(true);
+    } catch (error) {
+      console.error(error.message);
+      setError(true);
+    } finally {
+      setCreatingUser(false);
     }
-    else{
-        setError(true);
-    }
-    setCreatingUser(false);
   }
+  
   return (
     <div>
       <section className="mt-8">
@@ -49,6 +70,7 @@ export default function RegisterPage() {
         )}
         <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
           <input
+            name="email"
             type="email"
             placeholder="email"
             value={email}
